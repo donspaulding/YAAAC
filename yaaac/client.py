@@ -1,8 +1,7 @@
 import datetime
-from functools import partial
 
 import suds
-from yaaac import VERSION, SERVICE_WSDLS, DEBUG_WSDLS
+from yaaac import VERSION
 from yaaac.auth import get_adwords_auth
 
 

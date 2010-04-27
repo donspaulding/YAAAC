@@ -10,4 +10,5 @@ SERVICE_WSDLS = {
 DEBUG_WSDLS = dict(
         ((k, v.replace('adwords.google.com', 'adwords-sandbox.google.com')) for k,v in SERVICE_WSDLS.items())
 )
-#from yaaac.client import Client
+
+from yaaac.client import Client
