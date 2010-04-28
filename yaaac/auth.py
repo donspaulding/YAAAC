@@ -12,7 +12,11 @@ def do_clientlogin(email, password, account_type, service, url=CLIENT_LOGIN_URL)
         'accountType': account_type,
         'service': service,
     })
-    resp = urllib2.urlopen(url, data)
+    try:
+        resp = urllib2.urlopen(url, data)
+    except urllib2.HTTPError, e:
+        if e.code is 403:
+            raise RuntimeError(e.read())
     return dict((l.split('=', 1) for l in resp.read().splitlines()))
 
 def get_adwords_auth(email, password):
