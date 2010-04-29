@@ -14,10 +14,9 @@ def do_clientlogin(email, password, account_type, service, url=CLIENT_LOGIN_URL)
     })
     try:
         resp = urllib2.urlopen(url, data)
+        return dict((l.split('=', 1) for l in resp.read().splitlines()))
     except urllib2.HTTPError, e:
-        if e.code is 403:
-            raise RuntimeError(e.read())
-    return dict((l.split('=', 1) for l in resp.read().splitlines()))
+        raise RuntimeError(e.read())
 
 def get_adwords_auth(email, password):
     return do_clientlogin(email, password, account_type='GOOGLE', service='adwords')['Auth']
