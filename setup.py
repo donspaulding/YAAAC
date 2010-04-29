@@ -1,7 +1,10 @@
 from setuptools import setup, find_packages
+
+import yaaac
+
 setup(
     name = "YAAAC",
-    version = "0.2.0",
+    version = yaaac.VERSION,
     packages = find_packages(),
 
     # Project uses reStructuredText, so ensure that the docutils get
@@ -11,9 +14,9 @@ setup(
     # metadata for upload to PyPI
     author = "Don Spaulding",
     author_email = "donspauldingii@gmail.com",
-    description = "YAAAC is Yet Another Adwords Api Cliente",
+    description = "YAAAC is Yet Another Adwords Api Client",
     license = "BSD",
     keywords = "suds google client api SOAP ",
-    url = "http://github.com/donspaulding/yaaac/",   # project home page, if any
+    url = "http://github.com/donspaulding/YAAAC/",   # project home page, if any
 )
 

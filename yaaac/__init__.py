@@ -1,4 +1,4 @@
-VERSION = "0.2alpha"
+VERSION = "0.2.1"
 SERVICE_WSDLS = {
     "CampaignService": "https://adwords.google.com/api/adwords/cm/v201002/CampaignService?wsdl",
     "CampaignTargetService": "https://adwords.google.com/api/adwords/cm/v201002/CampaignTargetService?wsdl",
