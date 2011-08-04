@@ -1,4 +1,3 @@
-VERSION = "0.2.3"
 SERVICE_WSDLS = {
     "CampaignService": "https://adwords.google.com/api/adwords/cm/v201008/CampaignService?wsdl",
     "CampaignTargetService": "https://adwords.google.com/api/adwords/cm/v201008/CampaignTargetService?wsdl",
@@ -23,3 +22,4 @@ DEBUG_WSDLS = dict(
 )
 
 from yaaac.service import AdwordsService
+from yaaac.version import VERSION

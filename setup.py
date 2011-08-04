@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-import yaaac
+from yaaac.version import VERSION
 
 setup(
     name = "YAAAC",
-    version = yaaac.VERSION,
+    version = VERSION,
     packages = find_packages(),
 
     # Project uses reStructuredText, so ensure that the docutils get
