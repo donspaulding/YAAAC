@@ -1,7 +1,5 @@
 from setuptools import setup, find_packages
 
-import yaaac.version
-
 setup(
     name = "YAAAC",
     version = "0.2.4",
