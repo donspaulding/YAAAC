@@ -1,9 +1,9 @@
 import datetime
 
 import suds
-from yaaac import VERSION
 from yaaac.auth import get_adwords_auth
 
+VERSION = "0.2.5"
 
 class CallbackMethod:
     def __init__(self, method, callback):
