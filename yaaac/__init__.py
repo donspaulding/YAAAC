@@ -22,4 +22,3 @@ DEBUG_WSDLS = dict(
 )
 
 from yaaac.service import AdwordsService
-from yaaac.version import VERSION
