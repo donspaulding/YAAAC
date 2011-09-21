@@ -1,9 +1,10 @@
+import time
 import datetime
 
 import suds
 from yaaac.auth import get_adwords_auth
 
-VERSION = "0.2.5"
+VERSION = "0.2.6"
 
 class CallbackMethod:
     def __init__(self, method, callback):
@@ -24,7 +25,8 @@ class AdwordsService(suds.client.Client):
     _token_cache = {}
     _token_expirations = {}
     
-    def __init__(self, url, email, password, developer_token, user_agent="YAAAC Client (%s)"%VERSION, auth_token_lifetime=datetime.timedelta(days=1), debug=False):
+    def __init__(self, url, email, password, developer_token, user_agent="YAAAC Client (%s)"%VERSION,
+                    auth_token_lifetime=datetime.timedelta(days=1), debug=False, request_delay=None):
         super(AdwordsService, self).__init__(url)
         self._debug = debug
         self._email = email
@@ -32,6 +34,7 @@ class AdwordsService(suds.client.Client):
         self._developer_token = developer_token
         self._user_agent = user_agent
         self._auth_token_lifetime = auth_token_lifetime
+        self._request_delay = request_delay
         self._wrapped_methods = {}
         ###  AdWords auth tokens from the ClientLogin service are only 
         ###  valid for "about one week".  The auth_token_lifetime needs 
@@ -44,6 +47,8 @@ class AdwordsService(suds.client.Client):
         self._token_expirations[self._email] = datetime.datetime.now() + self._auth_token_lifetime
 
     def _set_adwords_headers(self, client_email='', client_id=''):
+        if self._request_delay is not None:
+            time.sleep(self._request_delay)
         head = self.factory.create("SoapHeader")
         head.authToken = self._token_cache[self._email]
         head.developerToken = self._developer_token
