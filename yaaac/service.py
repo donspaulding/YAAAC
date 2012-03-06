@@ -4,7 +4,8 @@ import datetime
 import suds
 from yaaac.auth import get_adwords_auth
 
-VERSION = "0.2.6"
+VERSION = "0.3.1"
+
 
 class CallbackMethod:
     def __init__(self, method, callback):
@@ -12,7 +13,7 @@ class CallbackMethod:
         self.callback = callback
 
     def __call__(self, *args, **kwargs):
-        self.callback(client_email=kwargs.pop('client_email',''), client_id=kwargs.pop('client_id', ''))
+        self.callback(client_email=kwargs.pop('client_email', ''), client_id=kwargs.pop('client_id', ''))
         return self.method(*args, **kwargs)
 
     def __repr__(self):
@@ -21,11 +22,12 @@ class CallbackMethod:
     def __str__(self):
         return str(self.method)
 
+
 class AdwordsService(suds.client.Client):
     _token_cache = {}
     _token_expirations = {}
-    
-    def __init__(self, url, email, password, developer_token, user_agent="YAAAC Client (%s)"%VERSION,
+
+    def __init__(self, url, email, password, developer_token, user_agent="YAAAC Client (%s)" % VERSION,
                     auth_token_lifetime=datetime.timedelta(days=1), debug=False, request_delay=None):
         super(AdwordsService, self).__init__(url)
         self._debug = debug
@@ -36,12 +38,12 @@ class AdwordsService(suds.client.Client):
         self._auth_token_lifetime = auth_token_lifetime
         self._request_delay = request_delay
         self._wrapped_methods = {}
-        ###  AdWords auth tokens from the ClientLogin service are only 
-        ###  valid for "about one week".  The auth_token_lifetime needs 
+        ###  AdWords auth tokens from the ClientLogin service are only
+        ###  valid for "about one week".  The auth_token_lifetime needs
         ###  to be a datetime.timedelta that is less than that.
         ###   ...  http://code.google.com/apis/adwords/v2009/docs/headers.html
-        self._reset_auth_token() # Prime the token_cache
-    
+        self._reset_auth_token()  # Prime the token_cache
+
     def _reset_auth_token(self):
         self._token_cache[self._email] = get_adwords_auth(self._email, self._password)
         self._token_expirations[self._email] = datetime.datetime.now() + self._auth_token_lifetime
@@ -57,7 +59,7 @@ class AdwordsService(suds.client.Client):
             head.clientCustomerId = client_id
         elif client_email:
             head.clientEmail = client_email
-        self.set_options( soapheaders=head )
+        self.set_options(soapheaders=head)
 
     def __getattr__(self, attr):
         if datetime.datetime.now() > self._token_expirations[self._email]:
